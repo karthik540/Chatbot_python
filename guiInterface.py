@@ -6,12 +6,23 @@ def loadMyMessage(name , Message):
         chatWindow.config(state = NORMAL)
         lineNumber = float(chatWindow.index('end'))-1.0
         chatWindow.insert(END , name + ": " + Message)
-        chatWindow.tag_add(name, lineNumber, lineNumber+0.4)
-        chatWindow.tag_config(name, foreground="#FF8000", font=("Arial", 12, "bold"))
+        chatWindow.tag_add(name, lineNumber, lineNumber+0.5)
+        if name == "You":
+            chatWindow.tag_config(name, foreground="#FF8000", font=("Arial", 12, "bold"))	
+        else:
+            chatWindow.tag_config(name, foreground="#36DEE8", font=("Arial", 12, "bold"))
         chatWindow.config(state=DISABLED)
         chatWindow.yview(END)
 
+###		Keyboard Functions		###
+def PressAction(action):
+	EntryBox.config(state = NORMAL)
+	ClickAction()
 
+def DisableEntry(action):
+	EntryBox.config(state = DISABLED)
+
+###		Message Loader 		###
 def ClickAction():
     # Filtering the Message
     filteredMessage = messageFilter(EntryBox.get("0.0" , END))
@@ -51,8 +62,8 @@ SendButton = Button(root, font=30, text="Send", width="12", height="5",
                     command = ClickAction)
 
 EntryBox = Text(root, bd=0, bg="white",width="29", height="5", font="Arial")
-EntryBox.bind("<Return>", """DisableEntry""")
-EntryBox.bind("<KeyRelease-Return>", """PressAction""")
+EntryBox.bind("<Return>", DisableEntry)
+EntryBox.bind("<KeyRelease-Return>", PressAction)
 
 # Placing all the stuff inplace
 scrollBar.place(x=376,y=6, height=386)

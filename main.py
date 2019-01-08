@@ -28,7 +28,7 @@ def botResponseReciever(queryMessage):
     rawData = str(response.read())
     rawData = rawData.replace(r"\n" , "")       #Remove \n 
     rawData = rawData.replace(r"b'" , "" , 1)   #Remove b'
-    rawData = rawData.replace(r"\'" , "" , 1)   #Remove \' which causes prob in the bot message
+    rawData = rawData.replace(r"\'" , "")   #Remove \' which causes prob in the bot message
     jsonData = rawData[0:-1]                        #Remove ' in the end
 
     jsonObj = open("response.json" , "w+")
